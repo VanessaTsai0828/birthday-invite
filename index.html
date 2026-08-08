@@ -3,21 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>You're Invited! ✨ Vanessa 的生日派對</title>
+  <title>You're Invited! ✨ Vanessa's Birthday Party</title>
 
   <!-- LINE / 社群分享卡片設定 (OG Tags) -->
-  <meta property="og:title" content="🎉 Vanessa 的生日派對邀請函 🎂">
-  <meta property="og:description" content="誠摯邀請你來參加大寶寶的生日派對！點擊開啟專屬邀請函。">
+  <meta property="og:title" content="🎉 Vanessa's Birthday Party 🎂">
+  <meta property="og:description" content="歡迎參加大寶寶的生日派對！點擊開啟專屬邀請函。">
   <meta property="og:type" content="website">
 
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --accent-gold: #fbbf24;
-      --text-main: #f8fafc;
-      --text-sub: #94a3b8;
+      /* 鵝黃色系與奶油色調背景 */
+      --bg-gradient: linear-gradient(135deg, #faebb6 0%, #fcf0c3 50%, #fcf0c3 100%);
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --primary: #d97706;          /* 鵝黃搭溫暖琥珀黃 */
+      --primary-hover: #b45309;
+      --accent-yellow: #f59e0b;
+      --soft-yellow-bg: #faebb6;   /* 柔和鵝黃區塊底色 */
+      --text-main: #451a03;        /* 濃郁深棕色文字 */
+      --text-sub: #78350f;
+      --shadow-color: rgba(217, 119, 6, 0.15);
     }
 
     * {
@@ -27,9 +35,9 @@
     }
 
     body {
-      background-color: var(--bg-color);
+      background: var(--bg-gradient);
       color: var(--text-main);
-      font-family: 'Noto Serif TC', serif;
+      font-family: 'Zen Maru Gothic', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -38,238 +46,295 @@
       overflow-x: hidden;
     }
 
-    /* 邀請函主容器 */
+    /* 主容器 */
     .invitation-container {
       width: 100%;
-      max-width: 420px;
+      max-width: 400px;
       perspective: 1000px;
     }
 
-    /* 卡片主體 */
+    /* 卡片本體 */
     .card {
       background: var(--card-bg);
-      border: 1px solid rgba(251, 191, 36, 0.3);
-      border-radius: 16px;
-      padding: 40px 25px;
+      backdrop-filter: blur(10px);
+      border: 2px solid #ffffff;
+      border-radius: 28px;
+      padding: 35px 24px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(251, 191, 36, 0.1);
+      box-shadow: 0 20px 40px var(--shadow-color);
       position: relative;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* 封面狀態 */
-    .card.closed .content-inside {
-      display: none;
-    }
-
-    .card.open .cover-content {
-      display: none;
-    }
+    /* 封面與內容切換 */
+    .card.closed .content-inside { display: none; }
+    .card.open .cover-content { display: none; }
 
     .card.open {
-      animation: openCard 0.8s forwards;
+      animation: popOpen 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
 
-    @keyframes openCard {
-      0% { transform: rotateY(90deg); opacity: 0; }
-      100% { transform: rotateY(0deg); opacity: 1; }
+    @keyframes popOpen {
+      0% { transform: scale(0.9) rotate(-2deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
     }
 
     /* 封面設計 */
     .cover-content {
-      padding: 20px 0;
+      padding: 30px 10px;
     }
 
-    .envelope-icon {
-      font-size: 3rem;
+    .envelope-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      background: var(--soft-yellow-bg);
+      border-radius: 50%;
+      font-size: 2.5rem;
       margin-bottom: 20px;
-      display: inline-block;
-      animation: pulse 2s infinite;
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.2);
+      animation: float 3s ease-in-out infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
     .cover-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1.8rem;
-      letter-spacing: 2px;
-      color: var(--accent-gold);
-      margin-bottom: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin-bottom: 8px;
     }
 
     .cover-subtitle {
       color: var(--text-sub);
       font-size: 0.95rem;
       margin-bottom: 30px;
+      font-weight: 500;
     }
 
     .btn-open {
-      background: linear-gradient(135deg, #fbbf24, #d97706);
-      color: #000;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #ffffff;
       border: none;
-      padding: 12px 32px;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 25px;
+      padding: 14px 36px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
-      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(217, 119, 6, 0.35);
+      transition: all 0.2s ease;
+      font-family: inherit;
     }
 
     .btn-open:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(217, 119, 6, 0.45);
     }
 
-    /* 音樂按鈕 (右上角) */
+    /* 右上角音樂按鈕 */
     .music-btn {
       position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--accent-gold);
-      color: var(--accent-gold);
+      top: 18px;
+      right: 18px;
+      background: #ffffff;
+      border: 1px solid var(--soft-yellow-bg);
+      color: var(--primary);
       border-radius: 50%;
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       display: none;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       z-index: 10;
+      transition: transform 0.2s;
     }
 
-    .card.open .music-btn {
-      display: flex;
+    .music-btn:active { transform: scale(0.9); }
+    .card.open .music-btn { display: flex; }
+
+    /* 拍立得照片質感 */
+    .polaroid-frame {
+      background: #ffffff;
+      padding: 12px 12px 30px 12px; /* 稍微加大留白比例 */
+      border-radius: 18px;
+      box-shadow: 0 12px 28px rgba(217, 119, 6, 0.15);
+      transform: rotate(-2deg);
+      margin: 0 auto 20px auto;
+      width: 250px; /* 從原本的 170px 放大至 230px */
+      transition: transform 0.3s;
     }
 
-    /* 照片樣式 */
     .party-photo {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
+      width: 100%;
+      height: 250px; /* 從原本的 150px 放大至 200px */
+      border-radius: 12px;
       object-fit: cover;
-      border: 3px solid var(--accent-gold);
-      box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
-      margin: 0 auto 15px auto;
       display: block;
     }
 
-    /* 內部內容設計 */
+    .polaroid-frame:hover {
+      transform: rotate(0deg) scale(1.03);
+    }
+
+
+    /* 內頁字體與排版 */
     .header-tag {
-      font-family: 'Cinzel', serif;
-      font-size: 0.85rem;
-      letter-spacing: 3px;
-      color: var(--accent-gold);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--primary);
       text-transform: uppercase;
+      background: var(--soft-yellow-bg);
+      padding: 4px 14px;
+      border-radius: 20px;
+      display: inline-block;
       margin-bottom: 15px;
     }
 
     h1 {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-      font-weight: 600;
+      font-size: 1.35rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+      color: var(--text-main);
       line-height: 1.4;
     }
 
     .message {
-      color: var(--text-sub);
+      color: #78350f;
       font-size: 0.95rem;
-      line-height: 1.8;
-      margin-bottom: 25px;
+      line-height: 1.7;
+      margin-bottom: 22px;
+      font-weight: 500;
     }
 
-    /* 派對資訊框 */
+    /* 派對資訊卡 */
     .details-box {
-      background: rgba(15, 23, 42, 0.6);
-      border-left: 2px solid var(--accent-gold);
-      padding: 20px;
-      border-radius: 0 12px 12px 0;
+      background: #fefce8;
+      border: 1px solid #fef08a;
+      border-radius: 20px;
+      padding: 18px 20px;
       text-align: left;
-      margin-bottom: 30px;
+      margin-bottom: 22px;
     }
 
     .detail-item {
-      margin-bottom: 12px;
-      font-size: 0.95rem;
+      margin-bottom: 10px;
+      font-size: 0.92rem;
       display: flex;
       align-items: flex-start;
+      font-weight: 700;
+      color: #451a03;
     }
 
-    .detail-item:last-child {
-      margin-bottom: 0;
-    }
+    .detail-item:last-child { margin-bottom: 0; }
 
     .icon {
-      margin-right: 12px;
+      margin-right: 10px;
       font-size: 1.1rem;
-      line-height: 1.4;
+      line-height: 1.3;
     }
 
-    .map-link {
-      color: var(--accent-gold);
-      text-decoration: underline;
-      font-weight: 600;
-      word-break: break-all;
+    /* 注意事項樣式 */
+    .notice-item {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #fde047;
+      font-size: 0.88rem;
+      color: #92400e;
+      line-height: 1.5;
     }
 
-    .map-link:hover {
-      opacity: 0.8;
+    .notice-item ul {
+      padding-left: 20px;
+      margin-top: 4px;
+      font-weight: 500;
     }
 
-    /* 倒數計時 */
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 6px;
+      background: #ffffff;
+      color: var(--primary);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      box-shadow: 0 2px 8px rgba(217, 119, 6, 0.15);
+      border: 1px solid #fef08a;
+      transition: all 0.2s;
+    }
+
+    .map-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    /* 倒數計時膠囊 */
     .countdown-title {
       font-size: 0.8rem;
       color: var(--text-sub);
       margin-bottom: 10px;
-      letter-spacing: 1px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
 
     .countdown {
       display: flex;
       justify-content: center;
-      gap: 15px;
-      margin-bottom: 25px;
+      gap: 12px;
+      margin-bottom: 20px;
     }
 
     .time-unit {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 8px 12px;
-      border-radius: 8px;
-      min-width: 55px;
+      background: #ffffff;
+      padding: 10px 8px;
+      border-radius: 16px;
+      min-width: 65px;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.08);
+      border: 1px solid #fef9c3;
     }
 
     .number {
-      font-family: 'Cinzel', serif;
-      font-size: 1.2rem;
-      color: var(--accent-gold);
-      font-weight: bold;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.3rem;
+      color: var(--primary);
+      font-weight: 800;
     }
 
     .label {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: var(--text-sub);
+      font-weight: 700;
+      margin-top: 2px;
     }
 
     .footer-note {
-      font-size: 0.85rem;
-      color: var(--accent-gold);
-      opacity: 0.8;
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 700;
     }
 
-    /* 禮花特效小點 */
+    /* 噴花效果小圓點 */
     .sparkle {
       position: absolute;
-      width: 6px;
-      height: 6px;
-      background: var(--accent-gold);
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       pointer-events: none;
-      animation: fly 1s ease-out forwards;
+      animation: fly 0.8s ease-out forwards;
     }
 
     @keyframes fly {
@@ -280,51 +345,68 @@
 </head>
 <body>
 
-  <!-- 背景音樂 (請替換為你的音樂檔名) -->
+  <!-- 背景音樂 -->
   <audio id="bgm" src="bgm.mp3" loop></audio>
 
   <div class="invitation-container">
     <div class="card closed" id="card">
       
-      <!-- 右上角音樂控制鈕 -->
+      <!-- 右上角音樂按鈕 -->
       <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵</button>
 
       <!-- 封面 -->
       <div class="cover-content">
-        <div class="envelope-icon">✉️</div>
-        <div class="cover-title">YOU'RE INVITED</div>
-        <div class="cover-subtitle">有一封來自 Vanessa 的專屬邀請函</div>
-        <button class="btn-open" onclick="openCard()">開啟邀請函</button>
+        <div class="envelope-badge"> ᕼᗩᑭᑭY ᗷIᖇTᕼᗞᗩY</div>
+        <div class="cover-title"><br><br>YOU'RE INVITED!<br><br></div>
+        <div class="cover-subtitle">來自 Vanessa 的生日派對邀請</div>
+        <button class="btn-open" onclick="openCard()">點擊開啟邀請函 ✨</button>
       </div>
 
       <!-- 展開後的內容 -->
       <div class="content-inside">
-        <div class="header-tag">Birthday Celebration</div>
+        <div class="header-tag">Vanessa's Birthday Party</div>
         
-        <!-- 個人照/派對主圖 (請替換為你的圖片檔名) -->
-        <img src="photo.jpg" alt="Vanessa" class="party-photo">
+        <!-- 拍立得相框 -->
+        <div class="polaroid-frame">
+          <img src="photo.png" alt="Vanessa" class="party-photo">
+        </div>
 
-        <h1>🎉🥳 邀請你來參加大寶寶的生日派對! 🎊🎂</h1>
+        <h1>歡迎來到<br>🎉🥳大寶寶的生日派對!🎊🎂</h1>
+        
         <p class="message">
           安安！<br>
-          收到這封邀請函表示你報名成功了!<br>
-          我知道你跟我一樣非常期待😎<br>
-          希望大家都能玩得開心。
+          收到這封邀請函表示你報名成功了！<br>
+          我知道你跟我一樣非常期待 😎<br>
+          希望大家當天都能玩得開心！
         </p>
 
         <div class="details-box">
           <div class="detail-item">
             <span class="icon">📅</span>
-            <span><strong>時間：</strong>2026.08.29 (Sat.) 20:00</span>
+            <span>2026.08.29 (Sat.) 20:00</span>
           </div>
           <div class="detail-item">
             <span class="icon">📍</span>
-            <span>
-              <strong>地點：</strong>
-              <a href="https://maps.app.goo.gl/6W4a8GHYiEomD26T7" target="_blank" rel="noopener noreferrer" class="map-link">
-                麥當勞-竹北中華 🗺️ (點擊開啟地圖)
-              </a>
-            </span>
+            <span>麥當勞 - 竹北中華店</span>
+          </div>
+          <div style="text-align: right; margin-top: 6px;">
+            <a href="https://maps.app.goo.gl/6W4a8GHYiEomD26T7" target="_blank" rel="noopener noreferrer" class="map-link map-btn">
+              🗺️ 打開 Google 地圖導航
+            </a>
+          </div>
+
+          <!-- 新增：注意事項區塊 -->
+          <div class="notice-item">
+            <div style="display: flex; align-items: center; font-weight: 800;">
+              <span class="icon">💡</span>
+              <span>派對小提醒：</span>
+            </div>
+            <ul>
+              <li>每位需自付 1 份超值全餐🍟🍔🥤<br> + $250 活動費用(含小禮物)🕶️</li>
+              <li>當天會有適合大朋友的現場活動!<br>請帶上滿滿的熱情一起來玩🕺🎶</li>
+              <li>不管你要不要都會收壽星神秘小禮物🎁<br>(對!問卷問辛酸的!)</li>
+              <li>活動地點及時間交通不便，請大家自行斟酌車程，注意安全 🫶</li>
+            </ul>
           </div>
         </div>
 
@@ -344,7 +426,7 @@
           </div>
         </div>
 
-        <div class="footer-note">See you! ✌️🤩</div>
+        <div class="footer-note">See you there! ✌️🥳</div>
       </div>
 
     </div>
@@ -361,18 +443,16 @@
       playMusic();
     }
 
-    // 播放音樂
     function playMusic() {
       const audio = document.getElementById('bgm');
       audio.play().then(() => {
         isPlaying = true;
         document.getElementById('musicBtn').innerText = '🎵';
       }).catch(err => {
-        console.log("自動播放被阻擋，需使用者手動點擊音樂鈕:", err);
+        console.log("自動播放被阻擋:", err);
       });
     }
 
-    // 切換音樂開關
     function toggleMusic() {
       const audio = document.getElementById('bgm');
       const btn = document.getElementById('musicBtn');
@@ -387,25 +467,25 @@
       }
     }
 
-    // 火花散射效果
     function createSparkles() {
       const card = document.getElementById('card');
-      for (let i = 0; i < 20; i++) {
+      const colors = ['#f59e0b', '#fbbf24', '#fef08a', '#fb7185'];
+      for (let i = 0; i < 25; i++) {
         const sparkle = document.createElement('div');
         sparkle.classList.add('sparkle');
-        const x = (Math.random() - 0.5) * 300;
-        const y = (Math.random() - 0.5) * 300;
+        const x = (Math.random() - 0.5) * 320;
+        const y = (Math.random() - 0.5) * 320;
         sparkle.style.setProperty('--tw-x', `${x}px`);
         sparkle.style.setProperty('--tw-y', `${y}px`);
+        sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
         sparkle.style.left = '50%';
-        sparkle.style.top = '50%';
+        sparkle.style.top = '40%';
         card.appendChild(sparkle);
 
-        setTimeout(() => sparkle.remove(), 1000);
+        setTimeout(() => sparkle.remove(), 800);
       }
     }
 
-    // 倒數計時器設定
     const targetDate = new Date('2026-08-29T20:00:00').getTime();
 
     function updateCountdown() {
